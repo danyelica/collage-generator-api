@@ -55,6 +55,12 @@ const showThisFile = async (req, res) => {
       }
     });
 
+    if (thisFile.length < 1) {
+      return res
+        .status(404)
+        .json({ mensagem: "We didn't found the photo your looking for :(" });
+    }
+
     return res
       .status(200)
       .json(
