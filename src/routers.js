@@ -10,5 +10,8 @@ const multer = require("./utils/multer");
 router.post("/upload", multer.single("photo"), uploadSingleFile);
 router.post("/upload-multiple", multer.array("photo"), uploadMultipleFiles);
 router.get("/files/:id", showThisFile);
+router.get("/", (req, res) => {
+  return res.json({ mensagem: "olá" });
+});
 
 module.exports = router;
