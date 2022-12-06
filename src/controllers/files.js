@@ -29,7 +29,13 @@ const uploadMultipleFiles = async (req, res) => {
         file.mimetype
       );
 
-      allFiles.push(photo);
+      if (photo.includes("collage-generator")) {
+        allFiles.push(photo);
+      } else {
+        allFiles.push(
+          `https://collage-generator.s3.us-west-004.backblazeb2.com${photo}`
+        );
+      }
     }
 
     return res.status(201).json(allFiles);
