@@ -10,7 +10,7 @@ const uploadSingleFile = async (req, res) => {
       file.mimetype
     );
 
-    return res.status(201).json(photo);
+    return res.status(201).json({ url: photo });
   } catch (error) {
     return res.status(500).json({ erro: error.message });
   }
@@ -30,11 +30,11 @@ const uploadMultipleFiles = async (req, res) => {
       );
 
       if (photo.includes("collage-generator")) {
-        allFiles.push(photo);
+        allFiles.push({ url: photo });
       } else {
-        allFiles.push(
-          `https://collage-generator.s3.us-west-004.backblazeb2.com${photo}`
-        );
+        allFiles.push({
+          url: `https://collage-generator.s3.us-west-004.backblazeb2.com${photo}`,
+        });
       }
     }
 
@@ -67,11 +67,9 @@ const showThisFile = async (req, res) => {
         .json({ mensagem: "We didn't found the photo your looking for :(" });
     }
 
-    return res
-      .status(200)
-      .json(
-        `https://collage-generator.s3.us-west-004.backblazeb2.com/${thisFile}`
-      );
+    return res.status(200).json({
+      url: `https://collage-generator.s3.us-west-004.backblazeb2.com/${thisFile}`,
+    });
   } catch (error) {
     return res.status(500).json({ erro: error.message });
   }
